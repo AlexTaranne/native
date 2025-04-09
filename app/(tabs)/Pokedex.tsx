@@ -11,19 +11,29 @@ export default function Pokedex() {
 	const route = useRoute();
 	const { evoliForms } = route.params as RouteParams;
 
+	console.info(evoliForms);
+
 	return (
 		<View style={styles.container}>
-			<Text style={styles.title}>Pokedex</Text>
-			<FlatList
-				data={evoliForms}
-				keyExtractor={(item) => item.name}
-				renderItem={({ item }) => (
-					<View style={styles.itemContainer}>
-						<Image source={item.image} style={styles.image} />
-						<Text style={styles.text}>{item.name}</Text>
-					</View>
-				)}
-			/>
+			{evoliForms.length > 0 || evoliForms ? (
+				<>
+					<Text style={styles.title}>Pokedex</Text>
+					<FlatList
+						data={evoliForms}
+						keyExtractor={(item) => item.name}
+						renderItem={({ item }) => (
+							<View style={styles.itemContainer}>
+								<Image source={item.image} style={styles.image} />
+								<Text style={styles.text}>{item.name}</Text>
+							</View>
+						)}
+					/>
+				</>
+			) : (
+				<View style={styles.container}>
+					<Text style={styles.title}>Aucun pokemon</Text>
+				</View>
+			)}
 		</View>
 	);
 }
@@ -41,14 +51,20 @@ const styles = StyleSheet.create({
 		marginBottom: 16,
 	},
 	itemContainer: {
+		display: "flex",
 		flexDirection: "row",
 		alignItems: "center",
+		justifyContent: "center",
+		gap: 16,
 		marginBottom: 16,
+		marginTop: 16,
+		padding: 16,
 	},
 	image: {
 		width: 50,
 		height: 50,
 		marginRight: 16,
+		resizeMode: "contain",
 	},
 	text: {
 		fontSize: 18,

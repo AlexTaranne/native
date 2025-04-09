@@ -106,7 +106,7 @@ export default function jeuxEvoli() {
 						style={styles.customButton}
 						onPress={() => navigation.navigate("Pokedex", { evoliForms })}
 					>
-						<Text style={styles.buttonText}>Go to Pokedex</Text>
+						<Text style={styles.buttonText}>Regarde ton Pokedex 😉</Text>
 					</TouchableOpacity>
 				</View>
 			)}
@@ -115,15 +115,22 @@ export default function jeuxEvoli() {
 }
 
 const styles = StyleSheet.create({
+	container: {
+		flex: 1,
+		justifyContent: "center",
+		alignItems: "center",
+		backgroundColor: "#fff",
+	},
 	displayText: {
 		alignSelf: "center",
 		fontWeight: "bold",
 		marginVertical: 10,
+		fontSize: 24,
 	},
 	image: {
 		alignSelf: "center",
-		width: 100,
-		height: 100,
+		width: 300,
+		height: 300,
 		marginVertical: 10,
 		resizeMode: "contain",
 	},
