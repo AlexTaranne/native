@@ -1,6 +1,6 @@
 import { useLocalSearchParams } from 'expo-router';
 import { View, Text, Image, StyleSheet } from 'react-native';
-import { pokemon } from '@/data/pokemonData';  // Importer le tableau depuis pokemonData.ts
+import { pokemon } from '@/data/pokemonData';  
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 
 export const options = ({ params }: { params: { id: string; name?: string } }) => ({
@@ -8,7 +8,7 @@ export const options = ({ params }: { params: { id: string; name?: string } }) =
   });
 
 export default function PokemonDetails() {
-  const { id } = useLocalSearchParams(); // Récupère l'ID de l'URL
+  const { id } = useLocalSearchParams(); 
   const currentPokemon = pokemon.find((poke) => poke.id.toString() === id);
 
   if (!currentPokemon) {

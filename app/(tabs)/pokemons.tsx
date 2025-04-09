@@ -1,3 +1,4 @@
+
 import { StyleSheet, Image, Platform, View , TouchableOpacity} from 'react-native';
 
 import { Collapsible } from '@/components/Collapsible';
@@ -90,4 +91,5 @@ const styles = StyleSheet.create({
     alignItems:"center",
     
   }
+
 });
