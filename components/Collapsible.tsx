@@ -1,5 +1,4 @@
-import type { PropsWithChildren } from "react";
-import { useState } from "react";
+import { PropsWithChildren, useState } from "react";
 import { StyleSheet, TouchableOpacity } from "react-native";
 
 import { ThemedText } from "@/components/ThemedText";
