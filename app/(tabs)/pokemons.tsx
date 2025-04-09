@@ -1,4 +1,4 @@
-import { StyleSheet, Image, Platform } from 'react-native';
+import { StyleSheet, Image, Platform, View } from 'react-native';
 
 import { Collapsible } from '@/components/Collapsible';
 import { ExternalLink } from '@/components/ExternalLink';
@@ -10,27 +10,28 @@ import { IconSymbol } from '@/components/ui/IconSymbol';
 
 export default function TabTwoScreen() {
   return (
-    <ParallaxScrollView
-     
-     
-      >
-     
+    <ParallaxScrollView >
         <ThemedText type="title">Pokemons</ThemedText>
-    
       <ThemedText>This app includes example code to help you get started.</ThemedText>
       <Collapsible title="Dracaufeu">
+      <Image source={require('@/assets/images/dracaufeu.png')}  style={styles.view}/>
         <ThemedText>
-          This app has two screens:{' '}
-          <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> and{' '}
-          <ThemedText type="defaultSemiBold">app/(tabs)/explore.tsx</ThemedText>
+          Dracaufeu est un pokemon de type feu et vol.
         </ThemedText>
         <ThemedText>
-          The layout file in <ThemedText type="defaultSemiBold">app/(tabs)/_layout.tsx</ThemedText>{' '}
-          sets up the tab navigator.
+          Autres formes:
         </ThemedText>
-        <ExternalLink href="https://docs.expo.dev/router/introduction">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
+<View style={styles.container}>
+<View style={styles.container1}>
+        <Image source={require('@/assets/images/reptincel.png')}  style={styles.image}/>
+        <ThemedText >Reptincel</ThemedText>
+</View>
+<View style={styles.container1}>
+        <Image source={require('@/assets/images/salameche1.png')}  style={styles.image}/>
+        <ThemedText >Salaméche</ThemedText>
+</View>
+</View>
+
       </Collapsible>
       <Collapsible title="Android, iOS, and web support">
         <ThemedText>
@@ -101,4 +102,22 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     gap: 8,
   },
+  view: {
+    
+    width:200,
+    height:200,
+    justifyContent: "center"
+  },
+  container: {
+    alignItems: "center",
+    flexDirection: "row",
+    gap:40
+  },
+  image:{
+    height:100,
+    width:100
+  },
+  container1:{
+    alignItems:"center"
+  }
 });
