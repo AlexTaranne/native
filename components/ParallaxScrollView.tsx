@@ -19,7 +19,7 @@ export default function ParallaxScrollView({ children }: Props) {
 	const colorScheme = useColorScheme() ?? "light";
 	const scrollRef = useAnimatedRef<Animated.ScrollView>();
 	const scrollOffset = useScrollViewOffset(scrollRef);
-	const bottom = useBottomTabOverflow();
+
 	const headerAnimatedStyle = useAnimatedStyle(() => {
 		return {
 			transform: [
@@ -46,8 +46,7 @@ export default function ParallaxScrollView({ children }: Props) {
 			<Animated.ScrollView
 				ref={scrollRef}
 				scrollEventThrottle={16}
-				scrollIndicatorInsets={{ bottom }}
-				contentContainerStyle={{ paddingBottom: bottom }}
+				
 			>
 				<Animated.View
 					style={[styles.header, , headerAnimatedStyle]}
@@ -62,7 +61,11 @@ const styles = StyleSheet.create({
 
   container: {
     flex: 1,
-    marginBottom:30
+    marginBottom:80,
+	
+	gap:90,
+	
+	flexDirection:"column"
   },
   header: {
     height: HEADER_HEIGHT,
@@ -71,8 +74,9 @@ const styles = StyleSheet.create({
   content: {
     flex: 1,
     padding: 32,
-    gap: 16,
+    gap: 20,
     overflow: 'hidden',
+	marginTop: 20
   },
 
 });

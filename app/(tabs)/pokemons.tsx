@@ -27,36 +27,14 @@ export default function TabTwoScreen() {
     <ParallaxScrollView >
         <ThemedText type="title">Pokemons</ThemedText>
       <ThemedText>Liste des pokemons:</ThemedText>
-      <Collapsible title="Dracaufeu">
-      <Image source={pokemon[0].image}  style={styles.view}/>
-        <ThemedText>
-          Dracaufeu est un pokemon de type feu et vol.
-        </ThemedText>
-        <ThemedText>
-          Autres formes:
-        </ThemedText>
-         <View style={styles.container}>
-        <View style={styles.container1} >
-          <Link
-            href={`/pokemonDetails/${pokemon[1].id}`} 
-          >
-            <Image source={pokemon[1].image} style={styles.image} />
-              </Link>
-            <ThemedText>{pokemon[1].name}</ThemedText>
-              </View>
-              <View style={styles.container1} >
-          <Link
-            href={`/pokemonDetails/${pokemon[2].id}`} 
-          >
-            <Image source={pokemon[2].image} style={styles.image} />
-              </Link>
-            <ThemedText>{pokemon[2].name}</ThemedText>
-              </View>
-       
-         <View style={styles.container1}>
-         </View>
-         </View>
-      </Collapsible>
+    {pokemon.map((poke) =>(
+    <View key={poke.id} style={{flexDirection: "row", justifyContent:"center"}}>
+      <Image   source={require('@/assets/images/pokeball.png')} style={{ width: 24, height: 24, marginRight: 8 }}/>
+<Link href={`/pokemonDetails/${poke.id}`}>
+      <ThemedText>{poke.name}</ThemedText>
+</Link>
+     </View>
+    ))}
     </ParallaxScrollView>
   );
 }
