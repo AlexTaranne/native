@@ -83,6 +83,7 @@ export default function TabTwoScreen() {
 			})}
 		</ParallaxScrollView>
 	);
+
 }
 
 const styles = StyleSheet.create({
