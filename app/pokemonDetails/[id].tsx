@@ -1,11 +1,13 @@
 import { useLocalSearchParams } from 'expo-router';
-import { View, Text, Image, StyleSheet } from 'react-native';
+import { View, Text, Image, StyleSheet, Button } from 'react-native';
 import { pokemon } from '@/data/pokemonData';  
 import ParallaxScrollView from '@/components/ParallaxScrollView';
+import React from 'react';
+import { useNavigation } from '@react-navigation/native';
+import { ThemedView } from '@/components/ThemedView';
 
-export const options = ({ params }: { params: { id: string; name?: string } }) => ({
-    headerTitle:  '',
-  });
+
+
 
 export default function PokemonDetails() {
   const { id } = useLocalSearchParams(); 
@@ -14,15 +16,27 @@ export default function PokemonDetails() {
   if (!currentPokemon) {
     return <Text>Pokemon non trouvé</Text>;
   }
+  const navigation = useNavigation();
 
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      headerLeft: () => (
+        <Button
+          title="Retour"
+          onPress={() => navigation.goBack()}
+          
+        />
+      ),
+    });
+  }, [navigation]);
   return (
     <ParallaxScrollView>
-    <View style={styles.container}>
-        <Text style={styles.text}>{currentPokemon.name}</Text>
-      <Image source={currentPokemon.image} style={styles.image} />
+    <ThemedView style={styles.container}>
+        <Text style={styles.title}>{currentPokemon.name}</Text>
+      <Image source={currentPokemon.image} style={styles.image} resizeMode='contain'/>
       
       <Text style={styles.text}>{currentPokemon.description}</Text>
-    </View>
+    </ThemedView>
     </ParallaxScrollView>
   );
 }
@@ -31,15 +45,22 @@ const styles = StyleSheet.create({
   container: {
   
     alignItems: 'center',
-    color: "#fff"
-    
+    color: "#fff",
+    flexDirection:"column",
+    gap:30,
+   
   },
   image: {
-    width: 300,
-    height: 300,
+    width: 350,
+    height: 350,
   },
   text:{
     color:"#fff",
     fontSize:20
+  },
+  title: {
+    fontSize:50,
+    color:"#fff",
   }
+
 });
