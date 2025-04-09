@@ -1,5 +1,14 @@
-import { StyleSheet, Image, Platform } from "react-native";
-
+import {
+	StyleSheet,
+	Image,
+	Platform,
+	TextInput,
+	Text,
+	Button,
+	View,
+	TouchableOpacity,
+} from "react-native";
+import { useState } from "react";
 import { Collapsible } from "@/components/Collapsible";
 import { ExternalLink } from "@/components/ExternalLink";
 import ParallaxScrollView from "@/components/ParallaxScrollView";
@@ -15,7 +24,7 @@ export default function TabTwoScreen() {
 			<ThemedText>
 				This app includes example code to help you get started.
 			</ThemedText>
-			<Collapsible title="Dracaufeu">
+			<Collapsible title="Images">
 				<ThemedText>
 					This app has two screens:{" "}
 					<ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText>{" "}
@@ -37,21 +46,6 @@ export default function TabTwoScreen() {
 					web version, press <ThemedText type="defaultSemiBold">w</ThemedText>{" "}
 					in the terminal running this project.
 				</ThemedText>
-			</Collapsible>
-			<Collapsible title="Images">
-				<ThemedText>
-					For static images, you can use the{" "}
-					<ThemedText type="defaultSemiBold">@2x</ThemedText> and{" "}
-					<ThemedText type="defaultSemiBold">@3x</ThemedText> suffixes to
-					provide files for different screen densities
-				</ThemedText>
-				<Image
-					source={require("@/assets/images/react-logo.png")}
-					style={{ alignSelf: "center" }}
-				/>
-				<ExternalLink href="https://reactnative.dev/docs/images">
-					<ThemedText type="link">Learn more</ThemedText>
-				</ExternalLink>
 			</Collapsible>
 			<Collapsible title="Custom fonts">
 				<ThemedText>
@@ -114,5 +108,17 @@ const styles = StyleSheet.create({
 	titleContainer: {
 		flexDirection: "row",
 		gap: 8,
+	},
+	customButton: {
+		backgroundColor: "#007BFF",
+		padding: 10,
+		borderRadius: 5,
+		width: 150,
+		alignItems: "center",
+	},
+	buttonText: {
+		color: "white",
+		fontWeight: "bold",
+		fontSize: 16,
 	},
 });

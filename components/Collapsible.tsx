@@ -1,4 +1,4 @@
-import { type PropsWithChildren, useState } from "react";
+import { PropsWithChildren, useState } from "react";
 import { StyleSheet, TouchableOpacity } from "react-native";
 
 import { ThemedText } from "@/components/ThemedText";
@@ -45,6 +45,5 @@ const styles = StyleSheet.create({
 	content: {
 		marginTop: 6,
 		marginLeft: 24,
-		alignItems: "center",
 	},
 });
