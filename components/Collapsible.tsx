@@ -1,5 +1,5 @@
 import { PropsWithChildren, useState } from 'react';
-import { StyleSheet, TouchableOpacity } from 'react-native';
+import { StyleSheet, TouchableOpacity, Image } from 'react-native';
 
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
@@ -17,13 +17,10 @@ export function Collapsible({ children, title }: PropsWithChildren & { title: st
         style={styles.heading}
         onPress={() => setIsOpen((value) => !value)}
         activeOpacity={0.8}>
-        <IconSymbol
-          name="chevron.right"
-          size={18}
-          weight="medium"
-          color={theme === 'light' ? Colors.light.icon : Colors.dark.icon}
-          style={{ transform: [{ rotate: isOpen ? '90deg' : '0deg' }] }}
-        />
+      <Image
+  source={require('@/assets/images/pokeball.png')} 
+  style={{ width: 24, height: 24, marginRight: 8 }}
+/>
 
         <ThemedText type="defaultSemiBold">{title}</ThemedText>
       </TouchableOpacity>
@@ -37,7 +34,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   content: {
-    marginTop: 6,
+
     marginLeft: 24,
     alignItems:"center"
   },
