@@ -1,73 +1,109 @@
+import React, { useEffect, useState, useCallback } from "react";
+import { View, FlatList, StyleSheet, Text } from "react-native";
+import PokemonCard from "@/components/PokemonCard";
+import ParallaxScrollView from "@/components/ParallaxScrollView";
+import { ThemedText } from "@/components/ThemedText";
+import type { ImageSourcePropType } from "react-native";
 
-import { StyleSheet, Image, Platform, View , TouchableOpacity} from 'react-native';
+type ApiPokemonType = {
+	id: number;
+	pokedexId: number;
+	name: {
+		fr: string;
+	};
+	types: {
+		name: string;
+	}[];
+	sprites: {
+		regular: ImageSourcePropType;
+	};
+};
 
-import { Collapsible } from '@/components/Collapsible';
-import { ExternalLink } from '@/components/ExternalLink';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
-import { IconSymbol } from '@/components/ui/IconSymbol';
-import { Link, useRouter } from 'expo-router';
-import { pokemon } from '@/data/pokemonData';
+export default function PokemonsScreen() {
+	const [pokemons, setPokemons] = useState<ApiPokemonType[]>([]);
+	const [loading, setLoading] = useState(true);
 
-interface PokemonTypes {
-  id:number,
-  name: string,
-  image: any,
-  description: string
-}
+	const fetchPokemons = useCallback(async () => {
+		try {
+			const response = await fetch("https://tyradex.vercel.app/api/v1/pokemon");
+			const data: ApiPokemonType[] = await response.json();
 
+			console.log("Raw API data:", data);
 
-export default function TabTwoScreen() {
+			const formattedData = data.map((pokemon, index) => ({
+				id: pokemon.id || index,
+				pokedexId: pokemon.pokedexId || 0,
+				name: pokemon.name?.fr ? { fr: pokemon.name.fr } : { fr: "Unknown" },
+				types:
+					pokemon.types && pokemon.types.length > 0
+						? pokemon.types
+						: [{ name: "Unknown", image: "" }], // Assurez-vous que `types` est un tableau
+				sprites: {
+					regular: pokemon.sprites?.regular
+						? { uri: pokemon.sprites.regular }
+						: require("@/assets/images/default.png"),
+				},
+			}));
 
-  const router = useRouter();
+			console.log("Formatted Pokemons:", formattedData);
 
+			setPokemons(formattedData);
+		} catch (error) {
+			console.error("Erreur lors de la récupération des données :", error);
+		} finally {
+			setLoading(false);
+		}
+	}, []);
 
-  return (
-    <ParallaxScrollView >
-        <ThemedText type="title">Pokemons</ThemedText>
-      <ThemedText>Liste des pokemons:</ThemedText>
-    {pokemon.map((poke) =>(
-    <View key={poke.id} style={{flexDirection: "row", justifyContent:"center"}}>
-      <Image   source={require('@/assets/images/pokeball.png')} style={{ width: 24, height: 24, marginRight: 8 }}/>
-<Link href={`/pokemonDetails/${poke.id}`}>
-      <ThemedText>{poke.name}</ThemedText>
-</Link>
-     </View>
-    ))}
-    </ParallaxScrollView>
-  );
+	useEffect(() => {
+		fetchPokemons();
+	}, [fetchPokemons]);
+
+	if (loading) {
+		return (
+			<View style={styles.loadingContainer}>
+				<Text style={styles.loadingText}>Chargement...</Text>
+			</View>
+		);
+	}
+
+	return (
+		<ParallaxScrollView>
+			<ThemedText type="title">Pokemons</ThemedText>
+			<ThemedText>Liste des pokemons:</ThemedText>
+			<View style={styles.container}>
+				<FlatList
+					data={pokemons}
+					keyExtractor={(item, index) =>
+						item.id ? item.id.toString() : index.toString()
+					}
+					renderItem={({ item }) => <PokemonCard pokemon={item} />}
+					numColumns={2}
+					contentContainerStyle={styles.listContent}
+				/>
+			</View>
+		</ParallaxScrollView>
+	);
 }
 
 const styles = StyleSheet.create({
-  headerImage: {
-    color: '#808080',
-    bottom: -90,
-    left: -35,
-    position: 'absolute',
-  },
-  titleContainer: {
-    flexDirection: 'row',
-    gap: 8,
-  },
-  view: {
-    
-    width:200,
-    height:200,
-    justifyContent: "center"
-  },
-  container: {
-    alignItems: "center",
-    flexDirection: "row",
-    gap:40
-  },
-  image:{
-    height:100,
-    width:100
-  },
-  container1:{
-    alignItems:"center",
-    
-  }
-
+	container: {
+		flex: 1,
+		padding: 16,
+		backgroundColor: "#fff",
+	},
+	loadingContainer: {
+		flex: 1,
+		justifyContent: "center",
+		alignItems: "center",
+		backgroundColor: "#fff",
+	},
+	loadingText: {
+		fontSize: 18,
+		fontWeight: "bold",
+		color: "#333",
+	},
+	listContent: {
+		alignItems: "center",
+	},
 });

@@ -31,7 +31,7 @@ export default function Pokedex() {
 				</>
 			) : (
 				<View style={styles.container}>
-					<Text style={styles.title}>Aucun pokemon</Text>
+					<Text style={styles.title}>Aucun pokemon trouvé</Text>
 				</View>
 			)}
 		</View>
