@@ -9,7 +9,7 @@ type RouteParams = {
 
 export default function Pokedex() {
 	const route = useRoute();
-	const { evoliForms } = route.params as RouteParams;
+	const evoliForms = (route.params as RouteParams)?.evoliForms ?? [];
 
 	console.info(evoliForms);
 

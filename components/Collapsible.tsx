@@ -1,6 +1,7 @@
-import type { PropsWithChildren } from "react";
-import { useState } from "react";
-import { StyleSheet, TouchableOpacity } from "react-native";
+
+import { PropsWithChildren, useState } from 'react';
+import { StyleSheet, TouchableOpacity, Image } from 'react-native';
+
 
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
@@ -15,20 +16,18 @@ export function Collapsible({
 	const [isOpen, setIsOpen] = useState(false);
 	const theme = useColorScheme() ?? "light";
 
-	return (
-		<ThemedView>
-			<TouchableOpacity
-				style={styles.heading}
-				onPress={() => setIsOpen((value) => !value)}
-				activeOpacity={0.8}
-			>
-				<IconSymbol
-					name="chevron.right"
-					size={18}
-					weight="medium"
-					color={theme === "light" ? Colors.light.icon : Colors.dark.icon}
-					style={{ transform: [{ rotate: isOpen ? "90deg" : "0deg" }] }}
-				/>
+
+  return (
+    <ThemedView >
+      <TouchableOpacity
+        style={styles.heading}
+        onPress={() => setIsOpen((value) => !value)}
+        activeOpacity={0.8}>
+      <Image
+  source={require('@/assets/images/pokeball.png')} 
+  style={{ width: 24, height: 24, marginRight: 8 }}
+/>
+
 
 				<ThemedText type="defaultSemiBold">{title}</ThemedText>
 			</TouchableOpacity>
@@ -38,13 +37,15 @@ export function Collapsible({
 }
 
 const styles = StyleSheet.create({
-	heading: {
-		flexDirection: "row",
-		alignItems: "center",
-		gap: 6,
-	},
-	content: {
-		marginTop: 6,
-		marginLeft: 24,
-	},
+
+  heading: {
+    flexDirection: 'row',
+  },
+  content: {
+
+    marginLeft: 24,
+    alignItems:"center"
+  },
+  
+
 });

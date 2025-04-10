@@ -11,7 +11,7 @@ import { ThemedView } from "@/components/ThemedView";
 import { useBottomTabOverflow } from "@/components/ui/TabBarBackground";
 import { useColorScheme } from "@/hooks/useColorScheme";
 
-const HEADER_HEIGHT = 250;
+const HEADER_HEIGHT = 20;
 
 type Props = PropsWithChildren<{}>;
 
@@ -19,7 +19,7 @@ export default function ParallaxScrollView({ children }: Props) {
 	const colorScheme = useColorScheme() ?? "light";
 	const scrollRef = useAnimatedRef<Animated.ScrollView>();
 	const scrollOffset = useScrollViewOffset(scrollRef);
-	const bottom = useBottomTabOverflow();
+
 	const headerAnimatedStyle = useAnimatedStyle(() => {
 		return {
 			transform: [
@@ -46,8 +46,7 @@ export default function ParallaxScrollView({ children }: Props) {
 			<Animated.ScrollView
 				ref={scrollRef}
 				scrollEventThrottle={16}
-				scrollIndicatorInsets={{ bottom }}
-				contentContainerStyle={{ paddingBottom: bottom }}
+				
 			>
 				<Animated.View
 					style={[styles.header, , headerAnimatedStyle]}
@@ -59,17 +58,25 @@ export default function ParallaxScrollView({ children }: Props) {
 }
 
 const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-	},
-	header: {
-		height: HEADER_HEIGHT,
-		overflow: "hidden",
-	},
-	content: {
-		flex: 1,
-		padding: 32,
-		gap: 16,
-		overflow: "hidden",
-	},
+
+  container: {
+    flex: 1,
+    marginBottom:80,
+	
+	gap:90,
+	
+	flexDirection:"column"
+  },
+  header: {
+    height: HEADER_HEIGHT,
+    overflow: 'hidden',
+  },
+  content: {
+    flex: 1,
+    padding: 32,
+    gap: 20,
+    overflow: 'hidden',
+	marginTop: 20
+  },
+
 });

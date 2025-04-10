@@ -70,6 +70,7 @@ export default function PokemonsScreen() {
 	return (
 		<ParallaxScrollView>
 			<ThemedText type="title">Pokemons</ThemedText>
+			<ThemedText>Liste des pokemons:</ThemedText>
 			<View style={styles.container}>
 				<FlatList
 					data={pokemons}
